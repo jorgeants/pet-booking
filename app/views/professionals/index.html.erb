@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%=link_to "Dashboard", root_path %></a></li>
+      <li class="active">Professionals</li>
+    </ol>
+  </div>
+</div>
+
+<%if notice %>
+  <div class="alert alert-info" id="notice">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <span class="glyphicon glyphicon-info-sign"></span> <%= notice %>
+  </div>
+<%end%>
+
+<div class="row header-list">
+  <div class="col-md-10 col-sm-9">
+    <h1>Professionals</h1>
+  </div>
+  <div class="col-md-2 col-sm-3 v-align">
+    <div>
+      <%= link_to new_professional_path, class: 'btn btn-primary pull-right' do %>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Professional
+      <%end %>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div class="table-responsive">
+  <table class="table table-hover list">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Telefone</th>
+        <th>CNPJ</th>
+        <th>CRMV</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+<% @professionals.each do |professional| %>
+        <tr data-link="<%= professional_path(professional) %>">
+          <td><%= professional.name %></td>
+          <td><%= professional.email %></td>
+          <td><%= professional.telephone %></td>
+          <td><%= professional.cnpj %></td>
+          <td><%= professional.crmv %></td>
+          <td class="buttons">
+            <%= link_to edit_professional_path(professional), class: 'btn btn-sm btn-primary' do %>
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            <%end%>
+            <%= link_to professional_path(professional), method: :delete, data: {confirm: "Are you sure you want to delete this data?"}, class: "btn btn-sm btn-primary" do%>
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            <%end%>
+          </td>
+        </tr>
+<% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <nav class="text-center">
+      <%= will_paginate @professionals, renderer: BootstrapPagination::Rails %>
+    </nav>
+  </div>
+</div>
+

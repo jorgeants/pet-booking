@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-6">
+	<%= simple_form_for(@professional) do |f| %>
+	  <%= f.error_notification %>
+
+	  <div class="form-inputs">
+	    <%= f.input :name, label: "Nome" %>
+	    <%= f.input :email, label: "E-mail" %>
+	    <%= f.input :telephone, label: "Telefone" %>
+	    <%= f.input :cnpj, label: "CNPJ" %>
+	    <%= f.input :crmv, label: "CRMV", input_html: { maxlength: 5 } %>
+	    <%= f.input :address, label: "Endereço" %>
+	  </div>
+
+	  <div class="form-actions">
+	    <%= f.button :submit, class: "btn btn-primary" %>
+	  </div>
+	<% end %>
+  </div>
+</div>

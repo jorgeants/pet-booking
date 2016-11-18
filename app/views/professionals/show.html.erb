@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%=link_to "Dashboard", root_path %></a></li>
+      <li><%=link_to "Professionals", professionals_path %></li>
+      <li class="active">Show Professional</li>
+    </ol>
+  </div>
+</div>
+
+<%if notice %>
+	<div class="alert alert-success" id="notice">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<span class="glyphicon glyphicon-ok-sign"></span> <%= notice %>
+	</div>
+<%end%>
+
+  <p>
+    <label>Nome:</label>
+    <%= @professional.name %>
+  </p>
+  <p>
+    <label>E-mail:</label>
+    <%= @professional.email %>
+  </p>
+  <p>
+    <label>Telefone:</label>
+    <%= @professional.telephone %>
+  </p>
+  <p>
+    <label>CNPJ:</label>
+    <%= @professional.cnpj %>
+  </p>
+  <p>
+    <label>CRMV:</label>
+    <%= @professional.crmv %>
+  </p>
+  <p>
+    <label>Endereço:</label>
+    <%= @professional.address %>
+  </p>
+
+<%= link_to professionals_path, class: 'btn btn-primary' do %>
+  <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Back
+<%end%>
+
+<%= link_to edit_professional_path(@professional), class: 'btn btn-primary' do %>
+  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+<%end%>

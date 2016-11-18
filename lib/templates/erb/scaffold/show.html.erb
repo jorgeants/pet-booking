@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%%=link_to "Dashboard", root_path %></a></li>
+      <li><%%=link_to "<%=plural_table_name.titleize%>", <%=plural_table_name%>_path %></li>
+      <li class="active">Show <%=singular_table_name.titleize%></li>
+    </ol>
+  </div>
+</div>
+
+<%%if notice %>
+	<div class="alert alert-success" id="notice">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<span class="glyphicon glyphicon-ok-sign"></span> <%%= notice %>
+	</div>
+<%%end%>
+
+<% attributes.reject(&:password_digest?).each do |attribute| -%>
+  <p>
+    <label><%= attribute.human_name %>:</label>
+    <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
+  </p>
+<%end -%>
+
+<%%= link_to <%=plural_table_name%>_path, class: 'btn btn-primary' do %>
+  <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Back
+<%%end%>
+
+<%%= link_to edit_<%=singular_table_name%>_path(@<%=singular_table_name%>), class: 'btn btn-primary' do %>
+  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+<%%end%>

@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%%=link_to "Dashboard", root_path %></a></li>
+      <li class="active"><%= plural_table_name.titleize %></li>
+    </ol>
+  </div>
+</div>
+
+<%%if notice %>
+  <div class="alert alert-info" id="notice">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <span class="glyphicon glyphicon-info-sign"></span> <%%= notice %>
+  </div>
+<%%end%>
+
+<div class="row header-list">
+  <div class="col-md-10 col-sm-9">
+    <h1><%= plural_table_name.titleize %></h1>
+  </div>
+  <div class="col-md-2 col-sm-3 v-align">
+    <div>
+      <%%= link_to new_<%= singular_table_name %>_path, class: 'btn btn-primary pull-right' do %>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New <%= singular_table_name.titleize %>
+      <%%end %>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div class="table-responsive">
+  <table class="table table-hover list">
+    <thead>
+      <tr>
+<% attributes.reject(&:password_digest?).each do |attribute| -%>
+        <th><%= attribute.human_name %></th>
+<% end -%>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+<%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+        <tr data-link="<%%= <%= singular_table_name %>_path(<%= singular_table_name %>) %>">
+<% attributes.reject(&:password_digest?).each do |attribute| -%>
+          <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+<% end -%>
+          <td class="buttons">
+            <%%= link_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: 'btn btn-sm btn-primary' do %>
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            <%%end%>
+            <%%= link_to <%= singular_table_name %>_path(<%= singular_table_name %>), method: :delete, data: {confirm: "Are you sure you want to delete this data?"}, class: "btn btn-sm btn-primary" do%>
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            <%%end%>
+          </td>
+        </tr>
+<%% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <nav class="text-center">
+      <%%= will_paginate @<%= plural_table_name %>, renderer: BootstrapPagination::Rails %>
+    </nav>
+  </div>
+</div>
+
